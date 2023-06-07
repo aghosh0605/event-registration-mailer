@@ -2,11 +2,6 @@ import { supabase } from "./supabase.js";
 import { redis } from "./redis.js";
 import { transporter } from "./email.js";
 import ejs from "ejs";
-/**
- * Encapsulates the routes
- * @param {FastifyInstance} fastify  Encapsulated Fastify Instance
- * @param {Object} options plugin options, refer to https://www.fastify.io/docs/latest/Reference/Plugins/#plugin-options
- */
 
 const opts = {
   schema: {
