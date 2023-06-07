@@ -1,6 +1,15 @@
 // ESM
 import Fastify from "fastify";
 import register from "./register.js";
+import cors from "@fastify/cors";
+import path from "path";
+import fastifyStatic from "@fastify/static";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+
+const __dirname = path.dirname(__filename);
+
 /**
  * @type {import('fastify').FastifyInstance} Instance of Fastify
  */
@@ -9,8 +18,20 @@ const fastify = Fastify({
   logger: true,
 });
 
+await fastify.register(cors, {
+  // put your options here
+  origin: "*",
+  methods: ["GET", "POST"],
+});
+
+fastify.register(fastifyStatic, {
+  root: path.join(__dirname, "templates"),
+  prefix: "/templates/", // optional: default '/'
+  // constraints: { host: "example.com" }, // optional: default {}
+});
+
 fastify.get("/", async (request, reply) => {
-  return { message: "API Working" };
+  return { message: "API is working properly" };
 });
 
 fastify.register(register);
